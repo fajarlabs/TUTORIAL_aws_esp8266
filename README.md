@@ -16,4 +16,6 @@ Setelah semuanya terinstall di library selanjutnya buka AKUN AWS, jika belum reg
 Membuat Device baru, tutorial berikut ini https://docs.aws.amazon.com/en_us/iot/latest/developerguide/register-device.html <br />
 Membuat Device sertifikat, tutorial berikut ini https://docs.aws.amazon.com/en_us/iot/latest/developerguide/create-device-certificate.html <br />
 
+<br />
+Apabila kurang jelas bisa lihat pada folder tutorial yang berikut file avi<br />
 Selengkapnya bisa chat di https://facebook.com/superbin
