@@ -1,0 +1,11 @@
+MQTT_TOPIC = "$aws/things/device-98f44a5b-edf0-4a0b-8e89-c0e33a77847d/shadow/update"
+MQTT_MSG = '{"message": "Hello from Client Python"}'
+
+MQTT_HOST = "a1gw4ay7j34fac-ats.iot.us-east-1.amazonaws.com"
+CA_ROOT_CERT_FILE = "root-CA.crt"
+THING_CERT_FILE = "device-98f44a5b-edf0-4a0b-8e89-c0e33a77847d.cert.pem"
+THING_PRIVATE_KEY = "device-98f44a5b-edf0-4a0b-8e89-c0e33a77847d.private.key"
+
+
+# coba jalankan berikut ini
+python basicPubSub.py -e "a1gw4ay7j34fac-ats.iot.us-east-1.amazonaws.com" -r "root-CA.crt" -c "device-98f44a5b-edf0-4a0b-8e89-c0e33a77847d.cert.pem" -k "device-98f44a5b-edf0-4a0b-8e89-c0e33a77847d.private.key"
