@@ -25,7 +25,7 @@ extern "C" {
 }
 
 //AWS IOT config, change these:
-char wifi_ssid[]       = "INFINET";
+char wifi_ssid[]       = "abcd";
 char wifi_password[]   = "satuduatiga";
 char aws_endpoint[]    = "a1gw4ay7j34fac-ats.iot.us-east-1.amazonaws.com";
 char aws_key[]         = "AKIAJHCHOJHQKFU5QR3Q";
@@ -67,8 +67,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print((char)payload[i]);
   }
   Serial.println();
-
-  sendmessage();
 }
 
 //connects to websocket layer and mqtt layer
@@ -118,6 +116,7 @@ void sendmessage () {
     char buf[100];
     strcpy(buf, "{\"state\":{\"reported\":{\"on\": false}, \"desired\":{\"on\": false}}}");   
     int rc = client.publish(aws_topic, buf); 
+    Serial.println("SEND MESSAGE...");
 }
 
 
@@ -145,6 +144,7 @@ void setup() {
 
     if (connect ()){
       subscribe (); 
+      sendmessage();
     }
 
 }
