@@ -4,9 +4,14 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
 
+#include <TimedAction.h>
+
+TimedAction timedAction = TimedAction(1000,sendmessage);
+
 //AWS
 #include "sha256.h"
 #include "Utils.h"
+
 
 //WEBSockets
 #include <Hash.h>
@@ -25,13 +30,13 @@ extern "C" {
 }
 
 //AWS IOT config, change these:
-char wifi_ssid[]       = "abcd";
-char wifi_password[]   = "satuduatiga";
-char aws_endpoint[]    = "a1gw4ay7j34fac-ats.iot.us-east-1.amazonaws.com";
-char aws_key[]         = "AKIAJHCHOJHQKFU5QR3Q";
-char aws_secret[]      = "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";
-char aws_region[]     = "us-east-1";
-const char* aws_topic  = "$aws/things/device-6e5c4b13-357f-4a56-abb9-a22a23f2e505/shadow/update";
+const char * wifi_ssid       = "INFINET";
+const char * wifi_password   = "satuduatiga";
+const char * aws_endpoint    = "a1gw4ay7j34fac-ats.iot.us-east-1.amazonaws.com";
+const char * aws_key         = "AKIAJHCHOJHQKFU5QR3Q";
+const char * aws_secret      = "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";
+const char * aws_region      = "us-east-1";
+const char * aws_topic       = "$aws/things/device-6e5c4b13-357f-4a56-abb9-a22a23f2e505/shadow/update";
 int port = 443;
 
 //MQTT config
@@ -112,11 +117,9 @@ void subscribe () {
 
 //send a message to a mqtt topic
 void sendmessage () {
-    //send a message   
-    char buf[100];
-    strcpy(buf, "{\"state\":{\"reported\":{\"on\": false}, \"desired\":{\"on\": false}}}");   
-    int rc = client.publish(aws_topic, buf); 
-    Serial.println("SEND MESSAGE...");
+    if (awsWSclient.connected ()) {   
+      client.publish(aws_topic, "{\"message\":\"Hello from ESP8266\"}");
+    }
 }
 
 
@@ -143,13 +146,13 @@ void setup() {
     awsWSclient.setUseSSL(true);
 
     if (connect ()){
-      subscribe (); 
-      sendmessage();
+      subscribe ();
     }
 
 }
 
 void loop() {
+    timedAction.check();
   //keep the mqtt up and running
   if (awsWSclient.connected ()) {    
       client.loop ();
